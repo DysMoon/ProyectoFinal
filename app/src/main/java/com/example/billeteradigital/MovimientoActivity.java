@@ -122,8 +122,8 @@ public class MovimientoActivity extends AppCompatActivity {
             AppDataBase.getDataBase(getApplicationContext()).movimientoDAO().insert(nuevo);
             runOnUiThread(() -> {
                 Toast.makeText(this, "Movimiento registrado", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK); // 👈 Para activar el onActivityResult
-                finish(); // 👈 Vuelve al DashboardActivity
+                setResult(RESULT_OK);
+                finish();
             });
         }).start();
     }

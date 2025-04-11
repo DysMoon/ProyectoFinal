@@ -15,9 +15,9 @@ import java.util.List;
 import Models.Categoria;
 public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.ViewHolder> {
     public interface OnCategoriaClickListener {
-        void onCategoriaClick(Categoria categoria);       // Para seleccionar
-        void onCategoriaEditar(Categoria categoria);      // Para editar
-        void onCategoriaEliminar(Categoria categoria);    // Para eliminar
+        void onCategoriaClick(Categoria categoria);
+        void onCategoriaEditar(Categoria categoria);
+        void onCategoriaEliminar(Categoria categoria);
     }
 
 
@@ -31,7 +31,7 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.View
 
     public void setData(List<Categoria> nuevasCategorias) {
         this.categorias = nuevasCategorias;
-        notifyDataSetChanged(); // 🔁 Actualiza la vista
+        notifyDataSetChanged();
     }
 
     @NonNull

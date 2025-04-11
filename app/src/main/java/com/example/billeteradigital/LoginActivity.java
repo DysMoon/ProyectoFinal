@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             String nickname = txt_usuario.getText().toString().trim();
             String password = txt_contraseña.getText().toString().trim();
-            String email = nickname; // si es el mismo campo
+            String email = nickname;
 
             validarDatos(nickname, password, email);
         }

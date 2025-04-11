@@ -1,6 +1,3 @@
-// Ya listo: ReporteActivity.java
-// (Este código es funcional y sincronizado con el XML actual que me compartiste)
-
 package com.example.billeteradigital;
 
 import android.os.Bundle;
@@ -76,7 +73,7 @@ public class ReporteActivity extends AppCompatActivity {
     private void configurarSpinnerAnios() {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         List<String> anios = new ArrayList<>();
-        anios.add("Todos"); // opción para vista mensual
+        anios.add("Todos");
         for (int i = currentYear; i >= currentYear - 10; i--) {
             anios.add(String.valueOf(i));
         }
@@ -84,7 +81,7 @@ public class ReporteActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, anios);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAnios.setAdapter(adapter);
-        spinnerAnios.setSelection(0); // mes por defecto
+        spinnerAnios.setSelection(0);
 
         spinnerAnios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

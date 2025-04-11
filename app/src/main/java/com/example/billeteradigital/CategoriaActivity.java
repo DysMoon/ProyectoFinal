@@ -58,7 +58,7 @@ public class CategoriaActivity extends AppCompatActivity {
                 result.putExtra("idCategoria", categoria.getId());
                 result.putExtra("nombreCategoria", categoria.getNombre());
                 setResult(RESULT_OK, result);
-                finish(); // 👈 Volver a MovimientoActivity con la categoría seleccionada
+                finish();
             }
 
 

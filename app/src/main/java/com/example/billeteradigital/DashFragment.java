@@ -70,7 +70,6 @@ public class DashFragment extends Fragment {
         View view = inflater.inflate(R.layout.frame_dash, container, false);
         initialViews(view);
 
-        // Inicialización de base de datos y DAOs
         AppDataBase db = AppDataBase.getDataBase(requireContext());
         categoriaDAO = db.categoriaDAO();
         movimientoDAO = db.movimientoDAO();
@@ -113,21 +112,19 @@ public class DashFragment extends Fragment {
     private void setupButtons() {
         btn_dash_ingreso.setOnClickListener(v -> {
             mostrarGastos = false;
-            updateChartData();          // actualiza gráfica
-            mostrarResumenPorCategoria(); // 🔁 actualiza lista
-            highlightActiveButton();    // resalta botón
+            updateChartData();
+            mostrarResumenPorCategoria();
+            highlightActiveButton();
         });
 
         btn_dash_gasto.setOnClickListener(v -> {
             mostrarGastos = true;
-            updateChartData();          // actualiza gráfica
-            mostrarResumenPorCategoria(); // 🔁 actualiza lista
-            highlightActiveButton();    // resalta botón
+            updateChartData();
+            mostrarResumenPorCategoria();
+            highlightActiveButton();
         });
 
-        btn_dash_pdf.setOnClickListener(v -> {
-            // Por ahora no implementado
-        });
+
         btn_dash_pdf.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -160,14 +157,13 @@ public class DashFragment extends Fragment {
         paint.setFakeBoldText(false);
         y += 25;
 
-        // Cabecera
         canvas.drawText("Monto", 10, y, paint);
         canvas.drawText("Fecha", 80, y, paint);
         canvas.drawText("Descripción", 160, y, paint);
         y += 15;
 
         for (Movimiento m : movimientoList) {
-            if (y > 580) break; // Evitar que se salga de la hoja
+            if (y > 580) break;
 
             String signo = m.isGasto() ? "- " : "+ ";
             String montoTexto = signo + String.format("S/ %.2f", m.getMonto());
@@ -203,7 +199,7 @@ public class DashFragment extends Fragment {
 
             List<Movimiento> filtrados = new ArrayList<>();
             for (Movimiento m : movimientoList) {
-                if (m.isGasto() == mostrarGastos) { // ✅ solo los gastos inicialmente
+                if (m.isGasto() == mostrarGastos) {
                     filtrados.add(m);
                 }
             }
@@ -211,7 +207,7 @@ public class DashFragment extends Fragment {
             requireActivity().runOnUiThread(() -> {
                 movimientoAdapter.setCategoria(categoriaList);
                 movimientoAdapter.setMovimientoList(filtrados);
-                updateChartData();  // 👈 esto puede seguir usando la lista completa si lo deseas
+                updateChartData();
             });
         });
     }
@@ -222,7 +218,6 @@ public class DashFragment extends Fragment {
         double totalIngresos = 0;
         double totalGastos = 0;
 
-        // Calcular totales
         for (Movimiento m : movimientoList) {
             if (m.isGasto()) {
                 totalGastos += m.getMonto();
@@ -233,13 +228,10 @@ public class DashFragment extends Fragment {
 
         double balance = totalIngresos - totalGastos;
 
-        // Mostrar en pantalla
         tv_balance.setText(String.format(Locale.getDefault(), "S/ %.2f", balance));
 
-        // 👇 Aquí reemplazamos ingresos por salidas (totalGastos)
         tv_ingresos.setText(String.format(Locale.getDefault(), "S/ %.2f", totalGastos));
 
-        // Presupuesto de ejemplo
         double presupuestoMensual = 200.00;
         tv_presupuesto.setText(String.format("S/ %.2f", presupuestoMensual));
 
@@ -250,7 +242,6 @@ public class DashFragment extends Fragment {
             tv_presupuesto.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
         }
 
-        // Agrupar montos por categoría
         Map<Categoria, Double> datos = new HashMap<>();
         for (Movimiento m : movimientoList) {
             if (m.isGasto() != mostrarGastos) continue;
@@ -269,7 +260,6 @@ public class DashFragment extends Fragment {
             }
         }
 
-        // Actualizar gráfico
         ChartHelper.updatePieChartWithCategories(pie_dash, datos);
     }
 
@@ -283,7 +273,6 @@ public class DashFragment extends Fragment {
             categoriaList = categoriaDAO.getCategoriasRaw();
             movimientoList = movimientoDAO.getMovimientosRaw();
 
-            // Filtrar por tipo (gasto o ingreso)
             List<Movimiento> filtrados = new ArrayList<>();
             for (Movimiento m : movimientoList) {
                 if (m.isGasto() == mostrarGastos) {
@@ -291,13 +280,12 @@ public class DashFragment extends Fragment {
                 }
             }
 
-            // Ordenar por fecha descendente
             filtrados.sort((m1, m2) -> m2.getFecha().compareTo(m1.getFecha()));
 
             requireActivity().runOnUiThread(() -> {
                 movimientoAdapter.setCategoria(categoriaList);
                 movimientoAdapter.setMovimientoList(filtrados);
-                updateChartData(); // Puede seguir usando movimientoList completa
+                updateChartData();
             });
         });
     }
@@ -323,10 +311,8 @@ public class DashFragment extends Fragment {
             }
         }
 
-        // Ordenar por fecha (más reciente primero)
         movimientosFiltrados.sort((m1, m2) -> m2.getFecha().compareTo(m1.getFecha()));
 
-        // Log de depuración
         for (Movimiento m : movimientosFiltrados) {
             Categoria cat = null;
             for (Categoria c : categoriaList) {

@@ -60,7 +60,6 @@ public class IconoAdapter extends BaseAdapter {
         int resId = context.getResources().getIdentifier(iconos[position], "drawable", context.getPackageName());
         iv.setImageResource(resId);
 
-        // Efecto visual de selección
         float scale = selectedPosition == position ? 1.3f : 1f;
         iv.setScaleX(scale);
         iv.setScaleY(scale);

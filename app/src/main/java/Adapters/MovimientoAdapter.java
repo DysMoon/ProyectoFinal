@@ -53,7 +53,7 @@ public class MovimientoAdapter extends RecyclerView.Adapter<MovimientoAdapter.Mo
             if (recursoId != 0) {
                 holder.iv_icon_category.setImageResource(recursoId);
             } else {
-                holder.iv_icon_category.setImageResource(R.drawable.logo); // Recurso por defecto
+                holder.iv_icon_category.setImageResource(R.drawable.logo);
             }
         } else {
             holder.tv_cat_dash.setText("Categoría Desconocida");

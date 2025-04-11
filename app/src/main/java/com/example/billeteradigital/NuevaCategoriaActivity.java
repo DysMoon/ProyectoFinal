@@ -99,7 +99,6 @@ public class NuevaCategoriaActivity extends AppCompatActivity {
     private void cargarCategoria(Categoria c) {
         edtNombreCategoria.setText(c.getNombre());
         iconoSeleccionado = c.getIcon();
-        // puedes agregar más lógica si deseas precargar selección visual
     }
 
 
@@ -110,23 +109,18 @@ public class NuevaCategoriaActivity extends AppCompatActivity {
             return;
         }
 
-        // Crear objeto categoría con los datos actuales
         Categoria categoria = new Categoria(nombre, "Creado manualmente", iconoSeleccionado, true);
 
-        // Ejecutar en hilo aparte
         new Thread(() -> {
             int categoriaId = getIntent().getIntExtra("categoria_id", -1);
 
             if (categoriaId != -1) {
-                // Modo edición
                 categoria.setId(categoriaId);
                 AppDataBase.getDataBase(getApplicationContext()).categoriaDAO().update(categoria);
             } else {
-                // Nuevo registro
                 AppDataBase.getDataBase(getApplicationContext()).categoriaDAO().insert(categoria);
             }
 
-            // Log para verificar en consola
             List<Categoria> lista = AppDataBase.getDataBase(getApplicationContext())
                     .categoriaDAO().getCategoriasRaw();
 

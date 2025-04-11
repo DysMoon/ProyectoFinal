@@ -49,7 +49,6 @@ public class ColorAdapter extends BaseAdapter {
         View vColor = view.findViewById(R.id.v_color);
         vColor.setBackgroundColor(colores.get(position));
 
-        // Efecto visual
         vColor.setScaleX(selectedPosition == position ? 1.3f : 1f);
         vColor.setScaleY(selectedPosition == position ? 1.3f : 1f);
 
