@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_margin="4dp">
+
+    <View
+        android:id="@+id/v_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:layout_gravity="center"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:layout_margin="2dp" />
+</FrameLayout>
