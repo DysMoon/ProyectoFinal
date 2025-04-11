@@ -18,20 +18,17 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_dashboard); // Asegúrate que este layout exista
+        setContentView(R.layout.activity_dashboard);
 
-        // Ajuste de padding para pantalla completa
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Botón para registrar movimiento
         btnfl_add = findViewById(R.id.btnfl_add);
         btnfl_add.setOnClickListener(v -> registrarMovimiento());
 
-        // Cargar fragmento solo una vez
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -44,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void registrarMovimiento() {
         Intent intent = new Intent(DashboardActivity.this, MovimientoActivity.class);
-        startActivityForResult(intent, REQ_MOVIMIENTO); // 👈 importante
+        startActivityForResult(intent, REQ_MOVIMIENTO);
     }
 
 
@@ -56,7 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (requestCode == REQ_MOVIMIENTO && resultCode == RESULT_OK) {
             DashFragment fragment = (DashFragment) getSupportFragmentManager().findFragmentById(R.id.fl_dashboard);
             if (fragment instanceof DashFragment) {
-                fragment.recargarDatos(); // ✅ ahora sí funcionará
+                fragment.recargarDatos();
             }
         }
     }
